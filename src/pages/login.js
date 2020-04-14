@@ -10,33 +10,13 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-  form:{
-    textAlign: 'center'
-  },
-  image:{
-    margin:'20px auto 20px auto',
-    maxWidth:'200px'
-  },
-  pageTitle:{
-    margin:'10px auto 10px auto',
-  },
-  textField:{
-    margin:'10px auto 10px auto',
-  },
-  button:{
-    marginTop:20,
-    position:'relative'
-  },
-  customError:{
-    color:'red',
-    fontSize:'0.8rem',
-    marginTop:10
-  },
-  progress:{
-    position:'absolute'
-  }
-};
+// REDUX
+import {connect} from 'react-redux';
+import {loginUser} from '../redux/actions/userActions';
+
+const styles =(theme)=> ({
+  ...theme.spreadThis
+});
 
 
 
@@ -47,34 +27,33 @@ export class login extends Component {
     this.state = {
         email:'',
         password:'',
-        loading:false,
+       
         errors:{}
     };  
 }
+
+componentWillReceiveProps(nextProps){
+  if(nextProps.UI.errors){
+    this.setState({
+      errors:nextProps.UI.errors
+    })
+  }
+  
+}
+
+
 handleSubmit =(event)=>{
   event.preventDefault();
-  console.log(this.state);
-  this.setState({
-    loading:true
-  });
+
+ 
+
   const userData = {
     email:this.state.email,
     password:this.state.password
   }
-  axios.post('/login',userData)
-  .then( res =>{
-    // SUCCESS and we want to redirect
-    console.log(res.data)
-    this.setState({
-      loading:false
-    });
-    this.props.history.push('/');
-  }).catch(err=>{
-    this.setState({
-      errors:err.response.data,
-      loading:false
-    })
-  })
+
+  this.props.loginUser(userData,this.props.history);
+
 
 
 
@@ -86,8 +65,8 @@ handleChange =(event)=>{
 }
 
   render() {
-    const {classes} = this.props;
-    const {errors,loading} = this.state;
+    const {classes, UI:{loading}} = this.props;
+    const {errors} = this.state;
 
     return (
       <Grid container className={classes.form}>
@@ -123,7 +102,18 @@ handleChange =(event)=>{
 }
 
 login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loginUser:PropTypes.func.isRequired,
+  user:PropTypes.object.isRequired,
+  UI:PropTypes.object.isRequired
 };
 
-export default withStyles(styles) (login);
+const mapStateToProps = (state) =>({
+  user:state.user,
+  UI:state.UI
+});
+const mapActionsToProps = {
+  loginUser
+}
+
+export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles) (login));
