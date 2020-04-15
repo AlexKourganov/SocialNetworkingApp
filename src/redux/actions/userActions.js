@@ -2,9 +2,14 @@ import {
     SET_USER,
     SET_ERRORS,
     CLEAR_ERRORS,
-    LOADING_UI
+    LOADING_UI,
+    SET_UNAUTHENTICATED,
+    LOADING_USER
 } from '../types';
 import axios from 'axios';
+
+
+
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({
         type: LOADING_UI
@@ -16,9 +21,7 @@ export const loginUser = (userData, history) => (dispatch) => {
             // SUCCESS and we want to redirect
 
 
-            const FBIdToken = `Bearer ${res.data.token}`;
-            localStorage.setItem('FBIdToken', FBIdToken);
-            axios.defaults.headers.common['Authorization'] = FBIdToken;
+            setAuthorizationHeader(res.data.token);
 
             dispatch(getUserData());
             dispatch({
@@ -33,8 +36,54 @@ export const loginUser = (userData, history) => (dispatch) => {
         })
 }
 
+// Sign Up
+export const signupUser = (newUserData, history) => (dispatch) => {
+    dispatch({
+        type: LOADING_UI
+    });
+
+
+    axios.post('/signup', newUserData)
+        .then(res => {
+            // SUCCESS and we want to redirect
+
+
+            setAuthorizationHeader(res.data.token);
+
+            dispatch(getUserData());
+            dispatch({
+                type: CLEAR_ERRORS
+            });
+            history.push('/');
+        }).catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
+};
+// Log Out
+
+export const logoutUser =()=>(dispatch)=>{
+    localStorage.removeItem('FBIdToken');
+    delete axios.defaults.headers.common['Authorization'];
+    dispatch({
+        type: SET_UNAUTHENTICATED
+    });
+}
+
+// Helper Func
+const setAuthorizationHeader = (token) =>{
+    const FBIdToken = `Bearer ${token}`;
+            localStorage.setItem('FBIdToken', FBIdToken);
+            axios.defaults.headers.common['Authorization'] = FBIdToken;
+}
+
+
+
+
 export const getUserData = () => (dispatch) => {
-    console.log('get user data is called');
+    dispatch({type:LOADING_USER});
     axios.get('/user')
         .then(res => {
             dispatch({
@@ -42,4 +91,12 @@ export const getUserData = () => (dispatch) => {
                 payload: res.data
             })
         }).catch(err => console.log(err));
+}
+// Upload Image
+export const uploadImage  = (formData)=> (dispatch)=>{
+    dispatch({type:LOADING_USER});
+    axios.post('/user/image',formData)
+    .then(()=>{
+        dispatch(getUserData())
+    }).catch(err=>console.log(err));
 }

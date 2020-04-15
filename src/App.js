@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
 import './App.css';
+import axios from 'axios';
 // Import MUI theme
 import themeFile from './util/theme';
 import jwtDecode from 'jwt-decode';
@@ -18,24 +19,31 @@ import signup from './pages/signup';
 // Redux
 import {Provider} from 'react-redux';
 import store from './redux/store';
-
+import {SET_AUTHENTICATED} from './redux/types';
+import {logoutUser,getUserData} from './redux/actions/userActions';
 
 
 
 // MUI THEME
 const theme = createMuiTheme(themeFile);
 
-let authenticated;
+
 const token = localStorage.FBIdToken;
+console.log('I am being called before token expire check!');
+
 if(token){
   const decodedToken = jwtDecode(token);
-  console.log('I am being called');
+  console.log('I am being called insie App.js');
   if(decodedToken.exp * 1000 < Date.now()){
     // means the token has exppired
-    window.location.href = '/login';
-    authenticated = false;
+    store.dispatch(logoutUser());
+    
   }else{
-    authenticated = true;
+    store.dispatch({
+      type:SET_AUTHENTICATED
+    });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 
 }
@@ -51,8 +59,8 @@ function App() {
         <div className='container'>
         <Switch>
           <Route exact path='/' component={home}/>
-          <AuthRoute exact path='/login' component={login} authenticated={authenticated}/>
-          <AuthRoute exact path='/signup' component={signup} authenticated={authenticated}/>
+          <AuthRoute exact path='/login' component={login} />
+          <AuthRoute exact path='/signup' component={signup}/>
         </Switch>
         </div>
       </Router>
