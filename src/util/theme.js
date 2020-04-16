@@ -8,9 +8,10 @@ export default {
       },
       secondary: {
         light: '#ff7961',
-        main: '#ff3d00',
+        main: '#ff12f3',
         dark: '#ba000d',
         contrastText: '#000',
+        white:'#ffffff'
       },
     },
     spreadThis:{
