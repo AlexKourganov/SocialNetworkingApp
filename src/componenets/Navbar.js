@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
+import PostScream from './PostScream';
 
 const styles =(theme)=> ({
     ...theme.spreadThis,
@@ -41,9 +42,10 @@ class Navbar extends Component {
                 <Toolbar className='nav-container'>
                     {authenticated ? (
                         <Fragment>
-                            <MyButton tip='Create Scream' btnClassName={classes.buttonColor}>
+                            {/* <MyButton tip='Create Scream' btnClassName={classes.buttonColor}>
                                 <AddIcon className={classes.iconColor}/>
-                            </MyButton>
+                            </MyButton> */}
+                            <PostScream/>
                             <Link to='/'>
                             <MyButton tip='Home' btnClassName={classes.buttonColor}>
                                 <HomeIcon className={classes.iconColor}/>

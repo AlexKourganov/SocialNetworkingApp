@@ -14,6 +14,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {connect} from 'react-redux';
 import {likeScream,unlikeScream} from '../redux/actions/dataActions';
+import DeleteScream from '../componenets/DeleteScream';
 
 
 
@@ -23,7 +24,8 @@ import {likeScream,unlikeScream} from '../redux/actions/dataActions';
 const styles = {
     card:{
         display:'flex',
-        marginBottom: 20
+        marginBottom: 20,
+        position:'relative'
     },
     image:{
         minWidth:200,
@@ -36,6 +38,9 @@ const styles = {
 }
 
 class Scream extends Component {
+  
+
+
     likedScream = ()=>{
         if(this.props.user.likes && this.props.user.likes.find(like => like.screamId === this.props.scream.screamId)){
             return true;
@@ -55,7 +60,7 @@ class Scream extends Component {
         dayjs.extend(relativeTime);
 
 
-        const {classes, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated}} = this.props;
+        const {classes, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated,credentials:{handle}}} = this.props;
 
         const likeButton = !authenticated ? (
             <MyButton tip='Like'>
@@ -74,6 +79,13 @@ class Scream extends Component {
                 </MyButton>
             )
         );
+
+
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId} />
+        ):(
+            null
+        )
         
         return (
             <Card className={classes.card}>
@@ -84,6 +96,7 @@ class Scream extends Component {
                 />
                 <CardContent className={classes.content}>
                     <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
+                    {deleteButton}
                     <Typography variant="body2">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
                     {likeButton}
