@@ -13,7 +13,7 @@ import EditIcon from  '@material-ui/icons/Edit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloseIcon from '@material-ui/icons/Close';
 import {connect} from 'react-redux';
-import {postScream} from '../redux/actions/dataActions';
+import {postScream,clearErrors} from '../redux/actions/dataActions';
 import { TextField, Button } from '@material-ui/core';
 
 const styles =(theme)=> ({
@@ -57,8 +57,8 @@ class PostScream extends Component {
             })
         }
         if(!nextProps.UI.errors && !nextProps.UI.loading){
-            this.setState({body:''});
-            this.handleClose();
+            this.setState({body:'',open:false,errors:{}});
+            
         }
     }
 
@@ -68,6 +68,7 @@ class PostScream extends Component {
         this.setState({open:true});
     }
     handleClose =()=>{
+        this.props.clearErrors();
         this.setState({open:false,errors:{}});
     }
     handleChange = (event)=>{
@@ -115,6 +116,7 @@ class PostScream extends Component {
 
 PostScream.propTypes = {
     postScream: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     UI:PropTypes.object.isRequired,
    
 }
@@ -123,4 +125,4 @@ const mapStateToProps = (state) =>({
     UI:state.UI
 })
 
-export default connect(mapStateToProps,{postScream})(withStyles(styles)(PostScream));
+export default connect(mapStateToProps,{postScream,clearErrors})(withStyles(styles)(PostScream));

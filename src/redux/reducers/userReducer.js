@@ -30,7 +30,8 @@ export default function (state=initialState,action){
             return{
                 ...state,
                 loading:true
-            }  
+            }
+       
         case LIKE_SCREAM:
               return{
                   ...state,
