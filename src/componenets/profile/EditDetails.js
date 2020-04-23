@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Tooltip from '@material-ui/core/Tooltip';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,7 +13,7 @@ import EditIcon from  '@material-ui/icons/Edit';
 
 
 import {connect} from 'react-redux';
-import {editUserDetails} from '../redux/actions/userActions';
+import {editUserDetails} from '../../redux/actions/userActions';
 import { TextField, Button } from '@material-ui/core';
 
 const styles =(theme)=> ({

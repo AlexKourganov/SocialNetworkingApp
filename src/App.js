@@ -9,7 +9,7 @@ import jwtDecode from 'jwt-decode';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 // Components
-import Navbar from './componenets/Navbar';
+import Navbar from './componenets/layout/Navbar';
 import AuthRoute from './util/AuthRoute';
 // Pages
 import home from './pages/home';

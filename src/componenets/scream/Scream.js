@@ -7,16 +7,17 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import PropTypes from 'prop-types';
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+
 import {connect} from 'react-redux';
-import {likeScream,unlikeScream} from '../redux/actions/dataActions';
-import DeleteScream from '../componenets/DeleteScream';
-import ScreamDialog from '../componenets/ScreamDialog';
-import LikeButton from '../componenets/LikeButton';
+import {likeScream,unlikeScream} from '../../redux/actions/dataActions';
+import DeleteScream from '../scream/DeleteScream';
+import ScreamDialog from '../scream/ScreamDialog';
+import LikeButton from '../scream/LikeButton';
+
+
 
 
 
@@ -49,7 +50,7 @@ class Scream extends Component {
         dayjs.extend(relativeTime);
 
 
-        const {classes, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated,credentials:{handle}}} = this.props;
+        const {classes, commentsCount, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated,credentials:{handle}}} = this.props;
 
         
 
@@ -90,12 +91,14 @@ Scream.propTypes = {
     unlikeScream: PropTypes.func.isRequired,
     user:PropTypes.object.isRequired,
     scream:PropTypes.object.isRequired,
-    classes:PropTypes.object.isRequired
+    classes:PropTypes.object.isRequired,
+    commentsCount:PropTypes.number.isRequired
     
   };
 
 const mapStateToProps = (state)=>({
-    user:state.user
+    user:state.user,
+    commentsCount:state.data.scream.commentCount
   });
 const mapActionsToProps = {
     likeScream,

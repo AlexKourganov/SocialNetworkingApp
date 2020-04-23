@@ -4,8 +4,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
-import EditDetails from "../componenets/EditDetails";
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
+import EditDetails from "./EditDetails";
 // MUI
 import Button from "@material-ui/core/Button";
 
@@ -17,7 +17,7 @@ import LinkIcon from "@material-ui/icons/Link";
 import EditIcon from "@material-ui/icons/Edit";
 import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import CalendarToday from "@material-ui/icons/CalendarToday";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const styles = {
   paper: {
