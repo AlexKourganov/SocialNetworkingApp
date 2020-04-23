@@ -15,13 +15,14 @@ export class home extends Component {
 
 
     componentDidMount(){
+      console.log('i am being called from HOME MOUNT!');
       this.props.getScreams();
     }
 
   render() {
     const {screams,loading} = this.props.data;
 
-      let recentScreamsMarkup = !loading ? 
+      let recentScreamsMarkup = !loading && screams!==null ? 
   (screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)) : (<p>Loading...</p>);
 
 

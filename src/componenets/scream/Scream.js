@@ -50,7 +50,7 @@ class Scream extends Component {
         dayjs.extend(relativeTime);
 
 
-        const {classes, commentsCount, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated,credentials:{handle}}} = this.props;
+        const {classes, scream : {body,createdAt,userImage,userHandle,screamId,likeCount,commentCount},user:{authenticated,credentials:{handle}}} = this.props;
 
         
 
@@ -92,13 +92,13 @@ Scream.propTypes = {
     user:PropTypes.object.isRequired,
     scream:PropTypes.object.isRequired,
     classes:PropTypes.object.isRequired,
-    commentsCount:PropTypes.number.isRequired
+    
     
   };
 
 const mapStateToProps = (state)=>({
     user:state.user,
-    commentsCount:state.data.scream.commentCount
+    
   });
 const mapActionsToProps = {
     likeScream,

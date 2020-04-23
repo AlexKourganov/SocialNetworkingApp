@@ -16,6 +16,8 @@ export default function (state=initialState,action){
                 loading:true
             };
         case SET_SCREAMS:
+
+        
             return{
                 ...state,
                 screams:action.payload,
