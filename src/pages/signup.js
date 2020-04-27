@@ -37,13 +37,19 @@ export class signup extends Component {
     };  
 }
 
-componentWillReceiveProps(nextProps){
-  if(nextProps.UI.errors){
-    this.setState({
-      errors:nextProps.UI.errors
-    })
-  }
+// componentWillReceiveProps(nextProps){
+//   if(nextProps.UI.errors){
+//     this.setState({
+//       errors:nextProps.UI.errors
+//     })
+//   }
   
+// }
+static getDerivedStateFromProps(nextProps, prevState){
+  if(nextProps.UI.errors){
+    return { errors:nextProps.UI.errors};
+ }
+ else return null;
 }
 
 

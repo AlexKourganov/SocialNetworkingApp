@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import MyButton from '../../util/MyButton';
+import Notifications from './Notifications';
 
 // MUI
 import AppBar from '@material-ui/core/AppBar';
@@ -12,7 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 // Icons
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
+// import Notifications from '@material-ui/icons/Notifications';
 import PostScream from '../scream/PostScream';
 
 const styles =(theme)=> ({
@@ -51,9 +52,9 @@ class Navbar extends Component {
                                 <HomeIcon className={classes.iconColor}/>
                             </MyButton>
                             </Link>
-                            <MyButton tip='Notifications' btnClassName={classes.buttonColor}>
-                                <Notifications className={classes.iconColor}/>
-                            </MyButton>
+                           
+                                <Notifications />
+                            
                         </Fragment>
                     ) : (
                         <Fragment>

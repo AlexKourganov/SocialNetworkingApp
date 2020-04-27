@@ -62,15 +62,41 @@ class ScreamDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           open:false
+           open:false,
+           oldPath:'',
+           newPath:''
         };  
     }
 
+    componentDidMount(){
+      if(this.props.openDialog){
+        this.handleOpen();
+      }
+    }
+
     handleOpen =()=>{
-        this.setState({open:true});
+        let oldPath =  window.location.pathname;
+
+        const {userHandle,screamId} = this.props;
+        const newPath = `/users/${userHandle}/scream/${screamId}`;
+
+        if(oldPath === newPath){
+          oldPath = `/users/${userHandle}`
+        }
+
+        window.history.pushState(null,null,newPath);
+
+
+
+
+
+        this.setState({open:true,oldPath,newPath});
         this.props.getScream(this.props.screamId);
     }
     handleClose =()=>{
+        window.history.pushState(null,null,this.state.oldPath);
+
+
         this.props.clearErrors();
         this.setState({open:false});
     }
@@ -88,7 +114,7 @@ class ScreamDialog extends Component {
             </div>
         ) : (
          
-            <Grid container spacing={16}>
+            <Grid container spacing={4}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -152,8 +178,8 @@ ScreamDialog.propTypes = {
     userHandle:PropTypes.string.isRequired,
     scream:PropTypes.object.isRequired,
     UI:PropTypes.object.isRequired,
-    likes:PropTypes.number.isRequired,
-    commentsCount:PropTypes.number.isRequired
+    likes:PropTypes.number,
+    commentsCount:PropTypes.number
     
     
   };

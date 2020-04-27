@@ -10,7 +10,9 @@ import dayjs from "dayjs";
 const styles = (theme) => ({
   ...theme.spreadThis,
   commentImage: {
-    maxWidth: "100%",
+    // maxWidth: "100%",
+    width: 100,
+
     height: 100,
     objectFit: "cover",
     borderRadius: "50%",
