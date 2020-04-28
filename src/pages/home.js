@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import axios from 'axios';
 import Scream from '../componenets/scream/Scream';
 import Profile from '../componenets/profile/Profile';
+import ScreamSkeleton from '../util/ScreamSkeleton';
 
 import PropTypes  from 'prop-types';
 import {connect} from  'react-redux';
@@ -15,7 +16,7 @@ export class home extends Component {
 
 
     componentDidMount(){
-      console.log('i am being called from HOME MOUNT!');
+      
       this.props.getScreams();
     }
 
@@ -23,7 +24,7 @@ export class home extends Component {
     const {screams,loading} = this.props.data;
 
       let recentScreamsMarkup = !loading && screams!==null ? 
-  (screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)) : (<p>Loading...</p>);
+  (screams.map(scream => <Scream key={scream.screamId} scream={scream}/>)) : (<ScreamSkeleton/>);
 
 
     return (

@@ -27,9 +27,10 @@ import {logoutUser,getUserData} from './redux/actions/userActions';
 // MUI THEME
 const theme = createMuiTheme(themeFile);
 
+axios.defaults.baseURL = 'https://us-central1-socialcorona.cloudfunctions.net/api';
 
 const token = localStorage.FBIdToken;
-console.log('I am being called before token expire check!');
+
 
 if(token){
   const decodedToken = jwtDecode(token);
