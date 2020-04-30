@@ -1,4 +1,4 @@
-import {SET_SCREAMS,LOADING_DATA,LIKE_SCREAM,UNLIKE_SCREAM, LOADING_UI,DELETE_SCREAM, SET_ERRORS, CLEAR_ERRORS,POST_SCREAM,SET_SCREAM,STOP_LOADING_UI,SUBMIT_COMMENT} from '../types';
+import {SET_SCREAMS,LOADING_DATA,LIKE_SCREAM,UNLIKE_SCREAM, LOADING_UI,DELETE_SCREAM, SET_ERRORS, CLEAR_ERRORS,POST_SCREAM,SET_SCREAM,STOP_LOADING_UI,SUBMIT_COMMENT,UPDATE_SLICE_DATA} from '../types';
 import axios from 'axios';
 
 
@@ -135,6 +135,13 @@ export const getUserData = (userHandle) =>(dispatch)=>{
             type:SET_SCREAMS,
             payload:null
         })
+    })
+}
+
+export const updateSliceData = (sliceData) =>(dispatch)=>{
+    dispatch({
+        type:UPDATE_SLICE_DATA,
+        payload:sliceData
     })
 }
 

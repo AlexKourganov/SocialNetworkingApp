@@ -1,11 +1,15 @@
-import {SET_SCREAMS,LIKE_SCREAM,UNLIKE_SCREAM,LOADING_DATA, DELETE_SCREAM, POST_SCREAM,SET_SCREAM, SUBMIT_COMMENT} from '../types';
+import {SET_SCREAMS,LIKE_SCREAM,UNLIKE_SCREAM,LOADING_DATA, DELETE_SCREAM, POST_SCREAM,SET_SCREAM, SUBMIT_COMMENT,UPDATE_SLICE_DATA} from '../types';
 import { useImperativeHandle } from 'react';
 
 
 const initialState = {
     screams:[],
     scream:{},
-    loading:false
+    loading:false,
+    renderScreams:[],
+    start:7,
+    end:14
+    
 };
 
 export default function (state=initialState,action){
@@ -16,12 +20,24 @@ export default function (state=initialState,action){
                 loading:true
             };
         case SET_SCREAMS:
-
+            let tempScreams; 
+            if(state.renderScreams.length === 0){
+                state.renderScreams = (action.payload).slice(0, 7);
+            }
         
             return{
                 ...state,
                 screams:action.payload,
                 loading:false
+            }
+        case UPDATE_SLICE_DATA:
+            
+        
+            return{
+                ...state,
+                renderScreams:action.payload,
+                start:state.start+7,
+                end:state.end+7
             }
         case SET_SCREAM:
             return{
@@ -71,9 +87,13 @@ export default function (state=initialState,action){
        
         case DELETE_SCREAM:
             let deleteIndex = state.screams.findIndex(scream => scream.screamId === action.payload);
+            let deleteIndex2 = state.renderScreams.findIndex(scream => scream.screamId === action.payload);
             state.screams.splice(deleteIndex,1);
+            state.renderScreams.splice(deleteIndex2,1);
             return{
-                ...state
+                ...state,
+                start:state.start-1,
+                end:state.end-1
             };
 
         case  POST_SCREAM:
@@ -83,7 +103,10 @@ export default function (state=initialState,action){
                 screams:[
                     action.payload,
                     ...state.screams
-                ]
+                ],
+                renderScreams:[action.payload,...state.renderScreams],
+                start:state.start+1,
+                end:state.end+1
             }    
        
         default:

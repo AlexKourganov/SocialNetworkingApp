@@ -13,6 +13,7 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-in-viewport": "^1.0.0-alpha.11",
     "react-infinite-scroll-component": "^5.0.4",
     "react-infinite-scroller": "^1.2.4",
     "react-redux": "^7.2.0",
