@@ -20,10 +20,10 @@ export default function (state=initialState,action){
                 loading:true
             };
         case SET_SCREAMS:
-            let tempScreams; 
-            if(state.renderScreams.length === 0){
-                state.renderScreams = (action.payload).slice(0, 7);
-            }
+            // let tempScreams; 
+            // if(state.renderScreams.length === 0){
+            //     state.renderScreams = (action.payload).slice(0, 7);
+            // }
         
             return{
                 ...state,
@@ -47,14 +47,19 @@ export default function (state=initialState,action){
             }
         case LIKE_SCREAM:
             let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
+            
             // we get back updated information about the scream and new like count so we replace it in the state
             state.screams[index] = action.payload;
             
+            
+            // For PopUpWindow
             if(state.scream.screamId === action.payload.screamId){
                 // state.scream = action.payload;
+                console.log('main called')
                 state.scream.likeCount = state.scream.likeCount + 1;
                 
             }
+       
             return{
                 ...state
             } 

@@ -99,6 +99,7 @@ Scream.propTypes = {
 const mapStateToProps = (state)=>({
     user:state.user,
     
+    
   });
 const mapActionsToProps = {
     likeScream,
