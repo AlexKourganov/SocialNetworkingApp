@@ -17,7 +17,7 @@ import {loginUser} from '../redux/actions/userActions';
 const styles =(theme)=> ({
   ...theme.spreadThis,
 form:{
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     padding: '0px 15px',
   },
         textAlign: 'center',
