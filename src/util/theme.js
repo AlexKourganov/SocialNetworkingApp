@@ -19,7 +19,9 @@ export default {
         useNextVariants:true
       },
       form:{
-        textAlign: 'center'
+        textAlign: 'center',
+        display:'flex',
+        justifyContent:'center'
       },
       image:{
         margin:'20px auto 20px auto',
