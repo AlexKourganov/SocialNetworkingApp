@@ -19,6 +19,7 @@ export default {
         useNextVariants:true
       },
       form:{
+      
         textAlign: 'center',
         display:'flex',
         justifyContent:'center'
