@@ -18,7 +18,15 @@ import {signupUser} from '../redux/actions/userActions';
 
 
 const styles =(theme)=> ({
-  ...theme.spreadThis
+  ...theme.spreadThis,
+  form:{
+    [theme.breakpoints.down('xs')]: {
+      padding: '0px 15px',
+    },
+          textAlign: 'center',
+          display:'flex',
+          justifyContent:'center'
+  }
 });
 
 

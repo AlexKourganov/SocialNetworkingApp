@@ -7,6 +7,7 @@ import ScreamSkeleton from '../util/ScreamSkeleton';
 import InfiniteScroll from "react-infinite-scroll-component";
 import {selectDataScreams,selectDataLoading} from '../redux/data.selector';
 import handleViewport from 'react-in-viewport';
+import Hidden from '@material-ui/core/Hidden';
 import PropTypes  from 'prop-types';
 import {connect} from  'react-redux';
 import {getScreams,updateSliceData} from '../redux/actions/dataActions';
@@ -33,27 +34,19 @@ export class home extends Component {
     fetchMoreData = () => {
       const {renderScreams,start,end} = this.props.data;
       const {screams} = this.props;
-      // console.log(screams);
-      
-      // console.log('FETCHING MORE DATA');
+
      
       
       let tempSliceData = renderScreams.concat(screams.slice(start, end));
       
       this.props.updateSliceData(tempSliceData);
-      console.log(renderScreams);
-      console.log(renderScreams.length);
-      console.log(screams.length-7);
+    
 
 
       if(renderScreams.length === screams.length-7 || renderScreams.length === screams.length){
         this.setState({hasMore:false})
       }
-      // this.setState({
-      //   initData: tempSliceData,
-      //   start: this.state.start + 7,
-      //   end: this.state.end + 7,
-      // });
+ 
 
       
     };
@@ -82,6 +75,14 @@ export class home extends Component {
 
     return (
       <Grid container spacing={10}>
+        <Hidden only={['sm','md', 'lg','xl']}>
+        <Grid item sm={4} xs={12}>
+         <Profile/>
+        </Grid>
+        </Hidden>
+
+
+
         <Grid item sm={8} xs={12}>
         {/* <InfiniteScroll
           dataLength={renderScreams.length}
@@ -101,9 +102,11 @@ export class home extends Component {
 
         {/* </InfiniteScroll> */}
         </Grid>
+        <Hidden only="xs">
         <Grid item sm={4} xs={12}>
          <Profile/>
         </Grid>
+        </Hidden>
       </Grid>
     );
   }
@@ -115,9 +118,7 @@ home.propTypes = {
   data:PropTypes.object.isRequired
 };
 
-// const mapStateToProps = (state) =>({
-//   data:state.data
-// });
+
 
 const mapStateToProps = (state) =>({
   data:state.data,
