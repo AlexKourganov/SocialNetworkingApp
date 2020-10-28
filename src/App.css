@@ -9,6 +9,8 @@ body {
 .container{
   margin:80px auto 0 auto;
   max-width: 1200px;
+  display: flex;
+  justify-content: center;
 }
 .nav-container{
   margin: auto;

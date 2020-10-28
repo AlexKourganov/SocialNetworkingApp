@@ -24,10 +24,6 @@ form:{
         display:'flex',
         justifyContent:'center'
 }
-
-
-
-  
 });
 
 

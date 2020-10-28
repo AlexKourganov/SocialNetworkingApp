@@ -1,16 +1,26 @@
 import React, { Component,useState } from "react";
 import Grid from "@material-ui/core/Grid";
+import withStyles from '@material-ui/core/styles/withStyles';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Scream from '../componenets/scream/Scream';
 import Profile from '../componenets/profile/Profile';
 import ScreamSkeleton from '../util/ScreamSkeleton';
-import InfiniteScroll from "react-infinite-scroll-component";
+
 import {selectDataScreams,selectDataLoading} from '../redux/data.selector';
-import handleViewport from 'react-in-viewport';
+
 import Hidden from '@material-ui/core/Hidden';
 import PropTypes  from 'prop-types';
 import {connect} from  'react-redux';
 import {getScreams,updateSliceData} from '../redux/actions/dataActions';
+
+const styles =(theme)=> ({
+  ...theme.spreadThis
+
+
+
+});
 
 
 export class home extends Component {
@@ -25,7 +35,7 @@ export class home extends Component {
 
 
     componentDidMount(){
-      console.log('HomePage Mount!');
+      
       this.props.getScreams();
       
     }
@@ -50,6 +60,7 @@ export class home extends Component {
 
       
     };
+
    
 
 
@@ -63,6 +74,9 @@ export class home extends Component {
     const {renderScreams} = this.props.data;
     const {screams,loading} = this.props;
     const {hasMore}=this.state;
+    const {classes} = this.props;
+
+    
     
   
    
@@ -74,7 +88,8 @@ export class home extends Component {
 
 
     return (
-      <Grid container spacing={10}>
+      
+      <Grid container  spacing={0}>
         <Hidden only={['sm','md', 'lg','xl']}>
         <Grid item sm={4} xs={12}>
          <Profile/>
@@ -84,23 +99,11 @@ export class home extends Component {
 
 
         <Grid item sm={8} xs={12}>
-        {/* <InfiniteScroll
-          dataLength={renderScreams.length}
-          next={this.fetchMoreData}
-          hasMore={hasMore}
-          scrollThreshold={1}
-          
-          loader={<h4>Loading...!</h4>}
-          endMessage={
-            <p style={{textAlign: 'center'}}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        > */}
+   
 
           {recentScreamsMarkup}
 
-        {/* </InfiniteScroll> */}
+        
         </Grid>
         <Hidden only="xs">
         <Grid item sm={4} xs={12}>
@@ -108,6 +111,7 @@ export class home extends Component {
         </Grid>
         </Hidden>
       </Grid>
+      
     );
   }
 }
@@ -115,7 +119,8 @@ export class home extends Component {
 
 home.propTypes = {
   getScreams:PropTypes.func.isRequired,
-  data:PropTypes.object.isRequired
+  data:PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 
@@ -133,4 +138,4 @@ const mapStateToProps = (state) =>({
 
 
 
-export default connect(mapStateToProps,{getScreams,updateSliceData})(home);
+export default connect(mapStateToProps,{getScreams,updateSliceData})(withStyles(styles)(home));

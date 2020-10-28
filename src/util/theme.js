@@ -58,6 +58,9 @@ export default {
       paper: {
         padding: 20,
       },
+      profileForm:{
+        marginLeft: '0px'
+      },
       profile: {
         "& .image-wrapper": {
           textAlign: "center",

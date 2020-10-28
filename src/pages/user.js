@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {getUserData} from  '../redux/actions/dataActions';
 import ScreamSkeleton from '../util/ScreamSkeleton';
 import ProfileSkeleton from '../util/ProfileSkeleton';
+import Hidden from '@material-ui/core/Hidden';
 
 
 class user extends Component {
@@ -68,10 +69,8 @@ class user extends Component {
 
 
         return (
-            <Grid container spacing={10}>
-                <Grid item sm={8} xs={12}>
-                    {screamsMarkup}
-                </Grid>
+            <Grid container spacing={0}>
+                <Hidden only={['sm','md', 'lg','xl']}>
                 <Grid item sm={4} xs={12}>
                     {  this.state.error !== null ? (
                         <p>No Profile Has Been Found</p>
@@ -84,6 +83,25 @@ class user extends Component {
                     )}
                     
                 </Grid>
+                </Hidden>
+                <Grid item sm={8} xs={12}>
+                    {screamsMarkup}
+                </Grid>
+
+                <Hidden only="xs">
+                <Grid item sm={4} xs={12}>
+                    {  this.state.error !== null ? (
+                        <p>No Profile Has Been Found</p>
+                    ) :
+                    
+                    this.state.profile === null ? (
+                        <ProfileSkeleton/>
+                    ):(
+                        <StaticProfile profile={this.state.profile}   />
+                    )}
+                    
+                </Grid>
+                </Hidden>
             </Grid>
         )
     }

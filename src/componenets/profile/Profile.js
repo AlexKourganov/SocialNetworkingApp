@@ -21,7 +21,18 @@ import CalendarToday from "@material-ui/icons/CalendarToday";
 import MyButton from "../../util/MyButton";
 
 const styles =(theme)=> ({
-  ...theme.spreadThis
+  ...theme.spreadThis,
+  paper:{
+    [theme.breakpoints.up('xs')]: {
+      marginLeft:'15px',
+      
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginLeft:'0px',
+     
+    },
+    padding: 20,
+  }
 });
 
 class Profile extends Component {

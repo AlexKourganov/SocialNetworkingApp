@@ -7,44 +7,27 @@ import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+
+import { connect } from "react-redux";
+
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import LinkIcon from '@material-ui/icons/Link';
 import LocationOn from  '@material-ui/icons/LocationOn';
 
-const styles = {
-    paper: {
-      padding: 20,
+const styles =(theme)=> ({
+  ...theme.spreadThis,
+  paper:{
+    [theme.breakpoints.up('xs')]: {
+      marginLeft:'15px',
+      
     },
-    profile: {
-      "& .image-wrapper": {
-        textAlign: "center",
-        position: "relative",
-     
-      },
-      "& .profile-image": {
-        width: 200,
-        height: 200,
-        objectFit: "cover",
-        maxWidth: "100%",
-        borderRadius: "50%",
-      },
-      "& .profile-details": {
-        textAlign: "center",
-        "& span, svg": {
-          verticalAlign: "middle",
-        },
-        "& a": {
-          color: "#00bcd4",
-        },
-      },
-      "& hr": {
-        border: "none",
-        margin: "0 0 10px 0",
-      }
-    
-    }
- 
-  };
+    [theme.breakpoints.down('xs')]: {
+      marginLeft:'0px',
+      
+    },
+    padding: 20,
+  }
+});
 
 
 const StaticProfile =(props)=> {
