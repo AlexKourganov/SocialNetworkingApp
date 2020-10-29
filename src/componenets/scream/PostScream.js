@@ -34,6 +34,11 @@ const styles =(theme)=> ({
         position:'absolute'
     },
     closeButton:{
+        [theme.breakpoints.down('xs')]: {
+            left:'83%',
+            top:'3%',
+            position:'absolute'
+              },
         position:'absolute',
         left:'90%',
         top:'10%'
