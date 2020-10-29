@@ -10,6 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import MyButton from '../../util/MyButton';
 import PropTypes from 'prop-types';
 import ChatIcon from '@material-ui/icons/Chat';
+import Box from '@material-ui/core/Box';
 
 import {connect} from 'react-redux';
 import {likeScream,unlikeScream} from '../../redux/actions/dataActions';
@@ -23,21 +24,25 @@ import LikeButton from '../scream/LikeButton';
 
 
 
-const styles = {
-    card:{
-        display:'flex',
-        marginBottom: 20,
-        position:'relative'
+const styles =(theme)=> ({
+    ...theme.spreadThis,
+  profileimage:{
+    minWidth:200,
+    [theme.breakpoints.down('xs')]: {
+      height:'50px',
+      width:'50px',
+      borderRadius:'50%',
+      minWidth:50,
+      marginTop:'17px'
     },
-    image:{
-        minWidth:200,
-        
-    },
-    content:{
-        padding:25,
-        objectFit:'cover'
+         
+  },
+  cardtext:{
+    [theme.breakpoints.down('xs')]: {
+        fontSize:'0.8em'
     }
-}
+  }
+  });
 
 class Scream extends Component {
   
@@ -66,20 +71,35 @@ class Scream extends Component {
                 <CardMedia
                     image={userImage}
                     title="Profile Image"
-                    className={classes.image}
+                    className={classes.profileimage}
                 />
                 <CardContent className={classes.content}>
                     <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
                     {deleteButton}
                     <Typography variant="body2">{dayjs(createdAt).fromNow()}</Typography>
                     <Typography variant="body1">{body}</Typography>
+
+                    <Box 
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    width="100%"
+                    >
+                    
                     <LikeButton screamId={screamId}/>
-                    <span>{likeCount} Likes</span>
+
+                    
+                    <span className={classes.cardtext}>{likeCount} Likes</span>
+                    
+
                     <MyButton tip='comments'>
                         <ChatIcon color='primary'/>
                     </MyButton>
-                    <span>{commentCount} comments</span>
+                    
+                    <span className={classes.cardtext}>{commentCount} comments</span>
+                    
                     <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={this.props.openDialog}/>
+                    </Box>
                 </CardContent>
             </Card>
         )

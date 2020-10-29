@@ -11,6 +11,12 @@ const styles = (theme) => ({
   ...theme.spreadThis,
   commentImage: {
     // maxWidth: "100%",
+    [theme.breakpoints.down('xs')]: {
+      width: '50px',
+      height:'50px',
+      objectFit: "cover",
+      borderRadius: "50%"
+    },
     width: 100,
 
     height: 100,
@@ -18,8 +24,23 @@ const styles = (theme) => ({
     borderRadius: "50%",
   },
   commentData: {
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
     marginLeft: 20,
   },
+  commnetContainer:{
+    [theme.breakpoints.down('xs')]: {
+      display:'flex',
+      justifyContent:'center',
+      flexDirection:'column',
+    }
+  },
+  mainContainer:{
+    [theme.breakpoints.down('xs')]: {
+      width:'100%'
+    }
+  }
 });
 
 class Comments extends Component {
@@ -29,14 +50,14 @@ class Comments extends Component {
    
     console.log(comments);
     return (
-      <Grid container>
+      <Grid container className={classes.mainContainer}>
         {comments.map((comment, index) => {
           const { body, createdAt, userImage, userHandle } = comment;
 
           return (
             <Fragment key={createdAt}>
               <Grid item sm={12}>
-                <Grid container>
+                <Grid container className={classes.commnetContainer}>
                   <Grid item sm={2}>
                     <img
                       src={userImage}
@@ -44,7 +65,7 @@ class Comments extends Component {
                       className={classes.commentImage}
                     />
                   </Grid>
-                  <Grid item sm={9}>
+                  <Grid item sm={10}>
                     <div className={classes.commentData}>
                       <Typography
                         variant="h5"

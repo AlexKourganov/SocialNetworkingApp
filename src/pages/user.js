@@ -49,22 +49,27 @@ class user extends Component {
     render() {
         const {screams,loading}= this.props.data;
         const {screamIdParam} = this.state;
-
+        console.log(screamIdParam);
         const screamsMarkup = loading ? (
             <ScreamSkeleton/>
-        ): screams === null ? (
+        ): (screams.length <1) ? (
+            
             <p>No Posts from this user</p>
         ) : !screamIdParam ? (
+            
             screams.map(scream => <Scream key={scream.screamId} scream={scream} />)
         ) : (
             screams.map(scream => {
                 if(scream.screamId !== screamIdParam){
+                    console.log('no open dialog')
                     return <Scream key={scream.screamId} scream={scream} />
                 }else{
+                    console.log('open dialog')
                     return <Scream key={scream.screamId} scream={scream} openDialog />
                 }
             })
-        )
+        );
+        
 
 
 

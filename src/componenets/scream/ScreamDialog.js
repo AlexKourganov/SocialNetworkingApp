@@ -30,6 +30,7 @@ import CommentForm from './CommentForm'
 import Comments from './Comments';
 
 
+
 const styles =(theme)=> ({
     ...theme.spreadThis,
 
@@ -44,16 +45,29 @@ const styles =(theme)=> ({
       },
       closeButton: {
         position: 'absolute',
-        left: '90%'
+        left: '90%',
+        [theme.breakpoints.down('xs')]: {
+          position: 'absolute',
+        left: '80%',
+        }
       },
       expandButton: {
         position: 'absolute',
-        left: '90%'
+        left: '90%',
+        [theme.breakpoints.down('xs')]: {
+          position: 'absolute',
+        left: '87%',
+        }
       },
       spinnerDiv: {
         textAlign: 'center',
         marginTop: 50,
         marginBottom: 50
+      },
+      cardtext:{
+        [theme.breakpoints.down('xs')]: {
+            fontSize:'0.8em'
+        }
       }
     
 })
@@ -82,6 +96,7 @@ class ScreamDialog extends Component {
 
         if(oldPath === newPath){
           oldPath = `/users/${userHandle}`
+          
         }
 
         window.history.pushState(null,null,newPath);
@@ -100,12 +115,15 @@ class ScreamDialog extends Component {
         this.props.clearErrors();
         this.setState({open:false});
     }
-
+    
 
 
     render() {
     
         const {classes,scream:{screamId,body,createdAt,likeCount,commentCount,userImage,userHandle,comments}, UI:{loading},likes,commentsCount}= this.props;
+        
+
+        
 
         const dialogMarkup = loading ? (
             <div className={classes.spinnerDiv}>
@@ -114,7 +132,7 @@ class ScreamDialog extends Component {
             </div>
         ) : (
          
-            <Grid container spacing={4}>
+            <Grid container justify="center" spacing={0}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -136,11 +154,11 @@ class ScreamDialog extends Component {
 
           <LikeButton  screamId={screamId} />
 
-          <span>{likes} likes</span>
+          <span className={classes.cardtext}>{likes} likes</span>
           <MyButton tip='comments'>
             <ChatIcon color='primary' />
           </MyButton>
-          <span>{commentsCount} comments</span>
+          <span className={classes.cardtext}>{commentsCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
 

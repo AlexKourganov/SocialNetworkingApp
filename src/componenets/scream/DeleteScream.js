@@ -13,13 +13,18 @@ import { withStyles } from '@material-ui/core';
 
 
 
-const styles = {
+const styles =(theme)=> ({
     deleteButton:{
+        [theme.breakpoints.down('xs')]: {
+        left:'87%',
+        top:'10%',
+        position:'absolute'
+          },
         left:'90%',
         top:'10%',
         position:'absolute'
     }
-}
+});
 
 
 class DeleteScream extends Component {

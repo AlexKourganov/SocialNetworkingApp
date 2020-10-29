@@ -28,6 +28,26 @@ export default {
         margin:'20px auto 20px auto',
         maxWidth:'200px'
       },
+
+      card:{
+        display:'flex',
+        marginBottom: 20,
+        position:'relative'
+    },
+    profileimage:{
+        minWidth:200,
+        
+        
+    },
+    content:{
+        padding:25,
+        objectFit:'cover'
+    },
+
+
+
+
+
       pageTitle:{
         margin:'10px auto 10px auto',
       },
