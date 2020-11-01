@@ -1,138 +1,136 @@
-import React, { Component, Fragment } from 'react';
-import dayjs from 'dayjs';
-import {Link} from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
-import {connect} from 'react-redux';
-import {getScream} from '../../redux/actions/dataActions';
+import { connect } from "react-redux";
+import { getScream } from "../../redux/actions/dataActions";
 
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Tooltip from '@material-ui/core/Tooltip';
-import MyButton from '../../util/MyButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from  '@material-ui/icons/Edit';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import CloseIcon from '@material-ui/icons/Close';
-import UnfoldMore from '@material-ui/icons/UnfoldMore';
-import ChatIcon from '@material-ui/icons/Chat';
-import {postScream,clearErrors} from '../../redux/actions/dataActions';
-import { TextField, Button, Divider } from '@material-ui/core';
-import LikeButton from './LikeButton';
-import CommentForm from './CommentForm'
-import Comments from './Comments';
+import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Tooltip from "@material-ui/core/Tooltip";
+import MyButton from "../../util/MyButton";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import CloseIcon from "@material-ui/icons/Close";
+import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import ChatIcon from "@material-ui/icons/Chat";
+import { postScream, clearErrors } from "../../redux/actions/dataActions";
+import { TextField, Button, Divider } from "@material-ui/core";
+import LikeButton from "./LikeButton";
+import CommentForm from "./CommentForm";
+import Comments from "./Comments";
 
+const styles = (theme) => ({
+  ...theme.spreadThis,
 
-
-const styles =(theme)=> ({
-    ...theme.spreadThis,
-
-    profileImage: {
-        maxWidth: 200,
-        height: 200,
-        borderRadius: '50%',
-        objectFit: 'cover'
-      },
-      dialogContent: {
-        padding: 20
-      },
-      closeButton: {
-        position: 'absolute',
-        left: '90%',
-        [theme.breakpoints.down('xs')]: {
-          position: 'absolute',
-        left: '80%',
-        }
-      },
-      expandButton: {
-        position: 'absolute',
-        left: '90%',
-        [theme.breakpoints.down('xs')]: {
-          position: 'absolute',
-        left: '87%',
-        }
-      },
-      spinnerDiv: {
-        textAlign: 'center',
-        marginTop: 50,
-        marginBottom: 50
-      },
-      cardtext:{
-        [theme.breakpoints.down('xs')]: {
-            fontSize:'0.8em'
-        }
-      }
-    
-})
+  profileImage: {
+    maxWidth: 200,
+    height: 200,
+    borderRadius: "50%",
+    objectFit: "cover",
+  },
+  dialogContent: {
+    padding: 20,
+  },
+  closeButton: {
+    position: "absolute",
+    left: "90%",
+    [theme.breakpoints.down("xs")]: {
+      position: "absolute",
+      left: "80%",
+    },
+  },
+  expandButton: {
+    position: "absolute",
+    left: "90%",
+    [theme.breakpoints.down("xs")]: {
+      position: "absolute",
+      left: "87%",
+    },
+  },
+  spinnerDiv: {
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  cardtext: {
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "0.8em",
+    },
+  },
+});
 
 class ScreamDialog extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-           open:false,
-           oldPath:'',
-           newPath:''
-        };  
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      oldPath: "",
+      newPath: "",
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
+    }
+  }
+
+  handleOpen = () => {
+    let oldPath = window.location.pathname;
+
+    const { userHandle, screamId } = this.props;
+    const newPath = `/users/${userHandle}/scream/${screamId}`;
+
+    if (oldPath === newPath) {
+      oldPath = `/users/${userHandle}`;
     }
 
-    componentDidMount(){
-      if(this.props.openDialog){
-        this.handleOpen();
-      }
-    }
+    window.history.pushState(null, null, newPath);
 
-    handleOpen =()=>{
-        let oldPath =  window.location.pathname;
+    this.setState({ open: true, oldPath, newPath });
+    this.props.getScream(this.props.screamId);
+  };
+  handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
 
-        const {userHandle,screamId} = this.props;
-        const newPath = `/users/${userHandle}/scream/${screamId}`;
+    this.props.clearErrors();
+    this.setState({ open: false });
+  };
 
-        if(oldPath === newPath){
-          oldPath = `/users/${userHandle}`
-          
-        }
+  render() {
+    const {
+      classes,
+      scream: {
+        screamId,
+        body,
+        createdAt,
+        likeCount,
+        commentCount,
+        userImage,
+        userHandle,
+        comments,
+      },
+      UI: { loading },
+      likes,
+      commentsCount,
+    } = this.props;
 
-        window.history.pushState(null,null,newPath);
-
-
-
-
-
-        this.setState({open:true,oldPath,newPath});
-        this.props.getScream(this.props.screamId);
-    }
-    handleClose =()=>{
-        window.history.pushState(null,null,this.state.oldPath);
-
-
-        this.props.clearErrors();
-        this.setState({open:false});
-    }
-    
-
-
-    render() {
-    
-        const {classes,scream:{screamId,body,createdAt,likeCount,commentCount,userImage,userHandle,comments}, UI:{loading},likes,commentsCount}= this.props;
-        
-
-        
-
-        const dialogMarkup = loading ? (
-            <div className={classes.spinnerDiv}>
-                <CircularProgress size={200} thickness={2}/>
-
-            </div>
-        ) : (
-         
-            <Grid container justify="center" spacing={0}>
+    const dialogMarkup = loading ? (
+      <div className={classes.spinnerDiv}>
+        <CircularProgress size={200} thickness={2} />
+      </div>
+    ) : (
+      <Grid container justify="center" spacing={0}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -147,71 +145,81 @@ class ScreamDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body2" color="textSecondary">
-            {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
+            {dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
 
-          <LikeButton  screamId={screamId} />
+          <LikeButton screamId={screamId} />
 
           <span className={classes.cardtext}>{likes} likes</span>
-          <MyButton tip='comments'>
-            <ChatIcon color='primary' />
+          <MyButton tip="comments">
+            <ChatIcon color="primary" />
           </MyButton>
           <span className={classes.cardtext}>{commentsCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
 
-          <CommentForm screamId={screamId}/>
+        <CommentForm screamId={screamId} />
 
-        <Comments comments={comments}/>
-       
+        <Comments comments={comments} />
       </Grid>
-        );
+    );
 
-        return (
-
-
-            <Fragment>
-                <MyButton onClick={this.handleOpen} tip='Expand Scream' tipClassName={classes.expandButton}>
-                    <UnfoldMore color='primary'/>
-                </MyButton>
-                <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
-                <MyButton tip='close' onClick={this.handleClose} tipClassName={classes.closeButton}>
-                        <CloseIcon/>
-                    </MyButton>
-                    <DialogContent className={classes.DialogContent}>
-                        {dialogMarkup}
-                    </DialogContent>
-                </Dialog>
-            </Fragment>
-        )
-    }
+    return (
+      <Fragment>
+        <MyButton
+          onClick={this.handleOpen}
+          tip="Expand Scream"
+          tipClassName={classes.expandButton}
+        >
+          <UnfoldMore color="primary" />
+        </MyButton>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          fullWidth
+          maxWidth="sm"
+        >
+          <MyButton
+            tip="close"
+            onClick={this.handleClose}
+            tipClassName={classes.closeButton}
+          >
+            <CloseIcon />
+          </MyButton>
+          <DialogContent className={classes.DialogContent}>
+            {dialogMarkup}
+          </DialogContent>
+        </Dialog>
+      </Fragment>
+    );
+  }
 }
 
 ScreamDialog.propTypes = {
-    clearErrors: PropTypes.func.isRequired,
-    getScream: PropTypes.func.isRequired,
-    screamId: PropTypes.string.isRequired,
-    userHandle:PropTypes.string.isRequired,
-    scream:PropTypes.object.isRequired,
-    UI:PropTypes.object.isRequired,
-    likes:PropTypes.number,
-    commentsCount:PropTypes.number
-    
-    
-  };
+  clearErrors: PropTypes.func.isRequired,
+  getScream: PropTypes.func.isRequired,
+  screamId: PropTypes.string.isRequired,
+  userHandle: PropTypes.string.isRequired,
+  scream: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  likes: PropTypes.number,
+  commentsCount: PropTypes.number,
+};
 
-  const mapStateToProps = (state)=>({
-    scream:state.data.scream,
-    UI:state.UI,
-    likes:state.data.scream.likeCount,
-    commentsCount:state.data.scream.commentCount
-  });
-  const mapActionsToProps = {
-      getScream,
-      clearErrors
-  };
+const mapStateToProps = (state) => ({
+  scream: state.data.scream,
+  UI: state.UI,
+  likes: state.data.scream.likeCount,
+  commentsCount: state.data.scream.commentCount,
+});
+const mapActionsToProps = {
+  getScream,
+  clearErrors,
+};
 
-  export default connect(mapStateToProps,mapActionsToProps) (withStyles(styles)(ScreamDialog));
- 
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(ScreamDialog));
