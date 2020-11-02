@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // REDUX
 import {connect} from 'react-redux';
-import {loginUser} from '../redux/actions/userActions';
+import {loginUser,clearUiError} from '../redux/actions/userActions';
 
 const styles =(theme)=> ({
   ...theme.spreadThis,
@@ -39,6 +39,12 @@ export class login extends Component {
         errors:{}
     };  
 }
+componentWillUnmount(){
+  console.log('signup unmount');
+  this.props.clearUiError();
+  
+
+}
 
 // componentWillReceiveProps(nextProps){
 //   if(nextProps.UI.errors){
@@ -49,8 +55,10 @@ export class login extends Component {
   
 // }
 static getDerivedStateFromProps(nextProps, prevState){
-  if(nextProps.UI.errors){
-    return { errors:nextProps.UI.errors};
+  console.log('Login Derived');
+  
+  if(nextProps.UI.lerrors){
+    return { errors:nextProps.UI.lerrors};
  }
  else return null;
 }
@@ -129,7 +137,8 @@ const mapStateToProps = (state) =>({
   UI:state.UI
 });
 const mapActionsToProps = {
-  loginUser
+  loginUser,
+  clearUiError
 }
 
 export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles) (login));

@@ -1,6 +1,8 @@
 import {
     SET_USER,
     SET_ERRORS,
+    SETLOGIN_ERRORS,
+    SETSIGNUP_ERRORS,
     CLEAR_ERRORS,
     LOADING_UI,
     SET_UNAUTHENTICATED,
@@ -31,7 +33,7 @@ export const loginUser = (userData, history) => (dispatch) => {
             history.push('/');
         }).catch(err => {
             dispatch({
-                type: SET_ERRORS,
+                type: SETLOGIN_ERRORS,
                 payload: err.response.data
             })
         })
@@ -58,7 +60,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
             history.push('/');
         }).catch(err => {
             dispatch({
-                type: SET_ERRORS,
+                type: SETSIGNUP_ERRORS,
                 payload: err.response.data
             })
         })
@@ -102,6 +104,17 @@ export const getUserData = () => (dispatch) => {
             })
         }).catch(err => console.log(err));
 }
+
+export const clearUiError = () => (dispatch) => {
+    dispatch({
+        type: CLEAR_ERRORS
+    });
+  
+}
+
+
+
+
 // Upload Image
 export const uploadImage  = (formData)=> (dispatch)=>{
     dispatch({type:LOADING_USER});

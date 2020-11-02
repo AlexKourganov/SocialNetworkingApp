@@ -10,7 +10,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {connect}  from 'react-redux';
-import {signupUser} from '../redux/actions/userActions';
+import {signupUser,clearUiError} from '../redux/actions/userActions';
 
 
 
@@ -34,7 +34,9 @@ const styles =(theme)=> ({
 
 export class signup extends Component {
   constructor(props) {
+    
     super(props);
+    
     this.state = {
         email:'',
         password:'',
@@ -43,19 +45,20 @@ export class signup extends Component {
         
         errors:{}
     };  
+    
+}
+componentWillUnmount(){
+  console.log('signup unmount');
+  this.props.clearUiError();
+  
+
 }
 
-// componentWillReceiveProps(nextProps){
-//   if(nextProps.UI.errors){
-//     this.setState({
-//       errors:nextProps.UI.errors
-//     })
-//   }
-  
-// }
 static getDerivedStateFromProps(nextProps, prevState){
-  if(nextProps.UI.errors){
-    return { errors:nextProps.UI.errors};
+  console.log(prevState);
+  // console.log(nextProps);
+  if(nextProps.UI.serrors){
+    return { errors:nextProps.UI.serrors};
  }
  else return null;
 }
@@ -63,7 +66,7 @@ static getDerivedStateFromProps(nextProps, prevState){
 
 handleSubmit =(event)=>{
   event.preventDefault();
-  console.log(this.state);
+  
   this.setState({
     loading:true
   });
@@ -131,6 +134,7 @@ signup.propTypes = {
   user:PropTypes.object.isRequired,
   UI:PropTypes.object.isRequired,
   signupUser:PropTypes.func.isRequired,
+  clearUiError:PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state)=>({
@@ -138,4 +142,4 @@ const mapStateToProps = (state)=>({
   UI:state.UI
 })
 
-export default connect(mapStateToProps,{signupUser}) (withStyles(styles) (signup));
+export default connect(mapStateToProps,{signupUser,clearUiError}) (withStyles(styles) (signup));
