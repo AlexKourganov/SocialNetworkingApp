@@ -9,6 +9,7 @@ export const SET_ERRORS = 'SET_ERRORS';
 export const SETLOGIN_ERRORS = 'SETLOGIN_ERRORS';
 export const SETSIGNUP_ERRORS = 'SETSIGNUP_ERRORS';
 export const LOADING_UI = 'LOADING_UI';
+export const LOADING_BTN = 'LOADING_BTN';
 export const STOP_LOADING_UI = 'STOP_LOADING_UI';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 

@@ -52,7 +52,7 @@ class user extends Component {
         console.log(screamIdParam);
         const screamsMarkup = loading ? (
             <ScreamSkeleton/>
-        ): (screams.length <1) ? (
+        ): (screams === null || screams.length <1) ? (
             
             <p>No Posts from this user</p>
         ) : !screamIdParam ? (

@@ -1,15 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Tooltip from '@material-ui/core/Tooltip';
 import MyButton from '../../util/MyButton';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from  '@material-ui/icons/Edit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloseIcon from '@material-ui/icons/Close';
 import {connect} from 'react-redux';
@@ -50,27 +46,56 @@ class PostScream extends Component {
         super(props);
         this.state = {
             open:false,
+            finished:false,
             body:'',
             errors:{}
         };  
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.UI.errors){
-            this.setState({
-                errors:nextProps.UI.errors
-            })
-        }
-        if(!nextProps.UI.errors && !nextProps.UI.loading){
-            this.setState({body:'',open:false,errors:{}});
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.UI.errors){
+    //         this.setState({
+    //             errors:nextProps.UI.errors
+    //         })
+    //     }
+    //     if(!nextProps.UI.errors && !nextProps.UI.loading){
+    //         this.setState({body:'',open:false,errors:{}});
             
+    //     }
+    // }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+    
+        if (nextProps.UI.errors) {
+         
+           return {errors: nextProps.UI.errors};
+         
         }
-    }
+    
+        if(!nextProps.UI.errors && !nextProps.UI.loading){
+            console.log(1)
+            console.log(prevState)
+            if(prevState.open === true && prevState.finished === false){
+                
+                return {open:true,errors:{}};
+            }
+            if(prevState.open === true && prevState.finished === true){
+                return {open:false,errors:{}};
+            }
+          return {errors:{}};
+        }
+
+      
+    
+      
+        
+       else return null;
+      }
 
 
 
     handleOpen =()=>{
-        this.setState({open:true});
+        this.setState({open:true,finished:false});
     }
     handleClose =()=>{
         this.props.clearErrors();
@@ -84,6 +109,11 @@ class PostScream extends Component {
     handleSubmit = (event)=>{
         event.preventDefault();
         this.props.postScream({body:this.state.body});
+        this.setState({
+            body:'',
+            finished:true
+          });
+     
     }
 
 

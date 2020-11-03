@@ -1,4 +1,4 @@
-import {SET_SCREAMS,LOADING_DATA,LIKE_SCREAM,UNLIKE_SCREAM, LOADING_UI,DELETE_SCREAM, SET_ERRORS, CLEAR_ERRORS,POST_SCREAM,SET_SCREAM,STOP_LOADING_UI,SUBMIT_COMMENT,UPDATE_SLICE_DATA} from '../types';
+import {SET_SCREAMS,LOADING_DATA,LIKE_SCREAM,UNLIKE_SCREAM, LOADING_UI,LOADING_BTN,DELETE_SCREAM, SET_ERRORS, CLEAR_ERRORS,POST_SCREAM,SET_SCREAM,STOP_LOADING_UI,SUBMIT_COMMENT,UPDATE_SLICE_DATA} from '../types';
 import axios from 'axios';
 
 
@@ -47,7 +47,7 @@ export const postScream = (newScream) =>(dispatch)=>{
 }
 // Submit a comment
 export const submitComment = (screamId,commentData) =>(dispatch)=>{
-
+    dispatch({type:LOADING_BTN});
     axios.post(`/scream/${screamId}/comment`,commentData)
     .then(res=>{
         dispatch({
@@ -55,7 +55,10 @@ export const submitComment = (screamId,commentData) =>(dispatch)=>{
             payload:res.data
         });
         
-        dispatch(clearErrors());
+        dispatch({
+            type:CLEAR_ERRORS
+            
+        });
     }).catch(err =>{
         dispatch({
             type:SET_ERRORS,

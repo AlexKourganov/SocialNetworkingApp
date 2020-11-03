@@ -112,12 +112,16 @@ Scream.propTypes = {
     user:PropTypes.object.isRequired,
     scream:PropTypes.object.isRequired,
     classes:PropTypes.object.isRequired,
-    openDialog:PropTypes.bool
+    openDialog:PropTypes.bool,
+    likes: PropTypes.number,
+    commentsCount: PropTypes.number,
     
   };
 
 const mapStateToProps = (state)=>({
     user:state.user,
+    likes: state.data.scream.likeCount,
+    commentsCount: state.data.scream.commentCount,
     
     
   });

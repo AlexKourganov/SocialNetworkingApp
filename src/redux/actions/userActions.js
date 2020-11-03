@@ -1,6 +1,5 @@
 import {
     SET_USER,
-    SET_ERRORS,
     SETLOGIN_ERRORS,
     SETSIGNUP_ERRORS,
     CLEAR_ERRORS,

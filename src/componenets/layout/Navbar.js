@@ -11,7 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 // Icons
-import AddIcon from '@material-ui/icons/Add';
+
 import HomeIcon from '@material-ui/icons/Home';
 // import Notifications from '@material-ui/icons/Notifications';
 import PostScream from '../scream/PostScream';

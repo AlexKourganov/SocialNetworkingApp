@@ -45,10 +45,10 @@ const styles = (theme) => ({
 
 class Comments extends Component {
   render() {
-    console.log('INSIDE COMMENTS');
+    
     const { comments, classes } = this.props;
    
-    console.log(comments);
+    
     return (
       <Grid container className={classes.mainContainer}>
         {comments.map((comment, index) => {

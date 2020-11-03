@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import MyButton from '../../util/MyButton';
 import PropTypes from 'prop-types';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -51,9 +50,7 @@ class DeleteScream extends Component {
 
     render() {
         const {classes} = this.props;
-        const styles = {
-
-        }
+     
 
 
 

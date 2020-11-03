@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 // Redux
 import { connect } from "react-redux";
 import { submitComment } from "../../redux/actions/dataActions";
-import { SET_ERRORS } from "../../redux/types";
+
 
 const styles = (theme) => ({
   ...theme.spreadThis,
+  progressSpinner:{
+    position:'absolute'
+},
+button:{
+  position:'relative'
+},
 });
 
 class CommentForm extends Component {
@@ -24,22 +29,30 @@ class CommentForm extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+
+
+  static getDerivedStateFromProps(nextProps, prevState){
     if (nextProps.UI.errors) {
-      this.setState({
-        errors: nextProps.UI.errors,
-      });
+     
+       return {errors: nextProps.UI.errors};
+     
     }
-    if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({
-        body: "",
-      });
+
+    if(!nextProps.UI.errors && !nextProps.UI.loadingbtn){
+      return {errors: {}};
     }
+
+  
+    
+   else return null;
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.submitComment(this.props.screamId, { body: this.state.body });
+    this.setState({
+        body: "",
+      });
   };
 
   handleChange = (event) => {
@@ -49,7 +62,7 @@ class CommentForm extends Component {
   };
 
   render() {
-    const { classes, authenticated } = this.props;
+    const { classes, authenticated, UI:{loadingbtn} } = this.props;
     const errors = this.state.errors;
 
     const commentFormMarkUp = authenticated ? (
@@ -70,9 +83,11 @@ class CommentForm extends Component {
             type="submit"
             variant="contained"
             color="primary"
+            
             className={classes.button}
           >
             Submit
+            {loadingbtn && ( <CircularProgress size={30} thickness={7} className={classes.progressSpinner} />)}
           </Button>
         </form>
         <hr className={classes.visibleSeparator} />

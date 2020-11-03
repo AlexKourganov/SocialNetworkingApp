@@ -1,8 +1,7 @@
-import React, { Component,useState } from "react";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import withStyles from '@material-ui/core/styles/withStyles';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 import Scream from '../componenets/scream/Scream';
 import Profile from '../componenets/profile/Profile';
@@ -71,10 +70,9 @@ export class home extends Component {
   render() {
     
     // const {screams,loading} = this.props.data;
-    const {renderScreams} = this.props.data;
+
     const {screams,loading} = this.props;
-    const {hasMore}=this.state;
-    const {classes} = this.props;
+
 
     
     

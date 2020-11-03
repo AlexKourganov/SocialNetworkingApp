@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, {Fragment } from 'react';
 import noImg from '../images/blank-pic.png';
 import PropTypes from 'prop-types';
 

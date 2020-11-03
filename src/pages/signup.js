@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import AppIcon from '../images/bacteria.png';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {connect}  from 'react-redux';
@@ -48,15 +47,15 @@ export class signup extends Component {
     
 }
 componentWillUnmount(){
-  console.log('signup unmount');
+  
   this.props.clearUiError();
   
 
 }
 
 static getDerivedStateFromProps(nextProps, prevState){
-  console.log(prevState);
-  // console.log(nextProps);
+ 
+  
   if(nextProps.UI.serrors){
     return { errors:nextProps.UI.serrors};
  }
@@ -96,7 +95,7 @@ handleChange =(event)=>{
       <Grid container className={classes.form}>
         <Grid item sm/>
         <Grid item sm>
-          <img src={AppIcon} alt="virus image" className={classes.image}/>
+          <img src={AppIcon} alt="virus" className={classes.image}/>
           <Typography variant="h2" className={classes.pageTitle}>SignUp</Typography>
 
           <form noValidate onSubmit={this.handleSubmit}>

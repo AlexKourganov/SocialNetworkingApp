@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import dayjs from 'dayjs';
@@ -6,10 +6,6 @@ import {Link} from 'react-router-dom';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
-
-import { connect } from "react-redux";
-
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import LinkIcon from '@material-ui/icons/Link';
 import LocationOn from  '@material-ui/icons/LocationOn';
@@ -36,7 +32,7 @@ return(
     <Paper className={classes.paper}>
           <div className={classes.profile}>
             <div className="image-wrapper">
-              <img src={imageUrl} alt="image" className="profile-image" />
+              <img src={imageUrl} alt="profile" className="profile-image" />
            
              
               

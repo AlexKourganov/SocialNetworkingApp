@@ -10,21 +10,18 @@ import { getScream } from "../../redux/actions/dataActions";
 
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Tooltip from "@material-ui/core/Tooltip";
+
 import MyButton from "../../util/MyButton";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
+
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
+
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
-import { postScream, clearErrors } from "../../redux/actions/dataActions";
-import { TextField, Button, Divider } from "@material-ui/core";
+import {  clearErrors } from "../../redux/actions/dataActions";
+
 import LikeButton from "./LikeButton";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
@@ -114,8 +111,7 @@ class ScreamDialog extends Component {
         screamId,
         body,
         createdAt,
-        likeCount,
-        commentCount,
+        
         userImage,
         userHandle,
         comments,
