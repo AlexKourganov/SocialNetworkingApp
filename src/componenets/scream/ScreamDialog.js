@@ -20,7 +20,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
-import {  clearErrors } from "../../redux/actions/dataActions";
+import { clearErrors } from "../../redux/actions/dataActions";
 
 import LikeButton from "./LikeButton";
 import CommentForm from "./CommentForm";
@@ -111,7 +111,7 @@ class ScreamDialog extends Component {
         screamId,
         body,
         createdAt,
-        
+
         userImage,
         userHandle,
         comments,

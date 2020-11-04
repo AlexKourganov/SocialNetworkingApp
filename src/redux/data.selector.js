@@ -1,12 +1,12 @@
-import {createSelector} from 'reselect';
+import { createSelector } from "reselect";
 
-const selectData = state => state.data;
+const selectData = (state) => state.data;
 
 export const selectDataScreams = createSelector(
-    [selectData],
-    (data) => data.screams
+  [selectData],
+  (data) => data.screams
 );
 export const selectDataLoading = createSelector(
-    [selectData],
-    (data) => data.loading
+  [selectData],
+  (data) => data.loading
 );

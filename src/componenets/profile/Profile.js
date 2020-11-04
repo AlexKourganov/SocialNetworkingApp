@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
-import ProfileSkeleton from '../../util/ProfileSkeleton';
+import ProfileSkeleton from "../../util/ProfileSkeleton";
 // MUI
 import Button from "@material-ui/core/Button";
 
@@ -20,19 +20,17 @@ import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import MyButton from "../../util/MyButton";
 
-const styles =(theme)=> ({
+const styles = (theme) => ({
   ...theme.spreadThis,
-  paper:{
-    [theme.breakpoints.up('xs')]: {
-      marginLeft:'15px',
-      
+  paper: {
+    [theme.breakpoints.up("xs")]: {
+      marginLeft: "15px",
     },
-    [theme.breakpoints.down('xs')]: {
-      marginLeft:'0px',
-     
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "0px",
     },
     padding: 20,
-  }
+  },
 });
 
 class Profile extends Component {
@@ -41,7 +39,7 @@ class Profile extends Component {
     //send to server
     const formData = new FormData();
     formData.append("image", image, image.name);
-    console.log(formData);
+    
     this.props.uploadImage(formData);
   };
   handleEditPicture = () => {
@@ -161,7 +159,7 @@ class Profile extends Component {
         </Paper>
       )
     ) : (
-      <ProfileSkeleton/>
+      <ProfileSkeleton />
     );
 
     return profileMarkup;

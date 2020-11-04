@@ -10,10 +10,10 @@ import {
 
 const initialState = {
   loading: false,
-  loadingbtn:false,
+  loadingbtn: false,
   errors: null,
-  serrors:null,
-  lerrors:null
+  serrors: null,
+  lerrors: null,
 };
 
 export default function (state = initialState, action) {
@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        loadingbtn:false,
+        loadingbtn: false,
         errors: action.payload,
       };
     case SETSIGNUP_ERRORS:
@@ -41,10 +41,10 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        loadingbtn:false,
+        loadingbtn: false,
         errors: null,
-        lerrors:null,
-        serrors:null,
+        lerrors: null,
+        serrors: null,
       };
 
     case LOADING_UI:

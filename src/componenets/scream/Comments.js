@@ -11,11 +11,11 @@ const styles = (theme) => ({
   ...theme.spreadThis,
   commentImage: {
     // maxWidth: "100%",
-    [theme.breakpoints.down('xs')]: {
-      width: '50px',
-      height:'50px',
+    [theme.breakpoints.down("xs")]: {
+      width: "50px",
+      height: "50px",
       objectFit: "cover",
-      borderRadius: "50%"
+      borderRadius: "50%",
     },
     width: 100,
 
@@ -24,31 +24,29 @@ const styles = (theme) => ({
     borderRadius: "50%",
   },
   commentData: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down("xs")]: {
       marginLeft: 0,
     },
     marginLeft: 20,
   },
-  commnetContainer:{
-    [theme.breakpoints.down('xs')]: {
-      display:'flex',
-      justifyContent:'center',
-      flexDirection:'column',
-    }
+  commnetContainer: {
+    [theme.breakpoints.down("xs")]: {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+    },
   },
-  mainContainer:{
-    [theme.breakpoints.down('xs')]: {
-      width:'100%'
-    }
-  }
+  mainContainer: {
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
 });
 
 class Comments extends Component {
   render() {
-    
     const { comments, classes } = this.props;
-   
-    
+
     return (
       <Grid container className={classes.mainContainer}>
         {comments.map((comment, index) => {
@@ -96,7 +94,7 @@ class Comments extends Component {
 }
 
 Comments.propTypes = {
-  comments: PropTypes.array.isRequired
+  comments: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(Comments);
