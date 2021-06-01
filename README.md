@@ -14,6 +14,9 @@ REACT/NODEJS/STYLED COMPONENTS/REDUX/FIREBASE
 ## Summary
 A Covid social chat app that uses styled components for styling. Redux for state managment and Firebase for backend and hosting.
 
+## Live Version
+https://socialcorona.web.app/
+
 ## :warning: WARNING :warning:
 There is a chance for page to not load its components and to get a cors error in the logs. This is due to Firebase free plan limitation. There is a limit
 to how many request one can make per x amount of time. If this happens give it a few seconds and reload. 
