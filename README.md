@@ -1,4 +1,4 @@
-# Corona Social Chat App :iphone:
+# Social Networking App :iphone:
 <p align="center">
   <img src="https://i.ibb.co/XJt2kLW/Isometric-Web-Pages-Mockup.png">
 </p>
