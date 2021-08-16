@@ -12,7 +12,7 @@
 REACT/NODEJS/STYLED COMPONENTS/REDUX/FIREBASE
 
 ## Summary
-A Covid social chat app that uses styled components for styling. Redux for state managment and Firebase for backend and hosting.
+A Social Networking App that uses styled components for styling. Redux for state managment and Firebase for backend and hosting.
 
 ## Live Version
 https://socialcorona.web.app/
