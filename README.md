@@ -1,3 +1,5 @@
+#  	:warning: This Project no longer works due to firebase changes(you need to pay for functions now)! :warning:
+
 # Social Networking App :iphone:
 <p align="center">
   <img src="https://i.ibb.co/XJt2kLW/Isometric-Web-Pages-Mockup.png">
